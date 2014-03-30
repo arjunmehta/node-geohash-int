@@ -48,27 +48,26 @@ var long_r = new GeoHashRange();
 long_r.min = -180.0;
 long_r.max = 180.0;
 
-// var hash = new GeoHashBits();
-// var result = geohashInt.geohash_encode.async(lat_r.ref(), long_r.ref(), 110, 50, 26, hash.ref(), function(err, res){
-//   console.log("GEOHASH ENCODE:  " + JSON.stringify(hash));  
-// });
-// console.log("GEOHASH RESULT: " + result);
-
-// geohashInt.geohash_encode(lat_r.ref(), long_r.ref(), 110, 50, 26, hash.ref());
-// console.log("GEOHASH ENCODE: " + JSON.stringify(hash));  
-
-// var area = new GeoHashArea();
-// geohashInt.geohash_decode(lat_r.ref(), long_r.ref(), hash.ref(), area.ref());
-// console.log("GEOHASH DECODE: " + JSON.stringify(area)); 
-
-// var neighbors = new GeoHashNeighbors();
-// geohashInt.geohash_get_neighbors(hash.ref(), neighbors.ref());
-// console.log("GEOHASH NEIGHBOURS: " + JSON.stringify(neighbors)); 
-
-
 var encode_int = function(lat_range, long_range, latitude, longitude, bits){
+
+  var latr = new GeoHashRange();
+  var longr = new GeoHashRange();
+
+  if(lat_range && long_range){
+    latr.min = lat_range.min || lat_r.min;
+    latr.max = lat_range.max || lat_r.max;
+    longr.min = long_range.min || long_r.min;
+    longr.max = long_range.max || long_r.max;
+  }
+  else{
+    latr.min = lat_r.min;
+    latr.max = lat_r.max;
+    longr.min = long_r.min;
+    longr.max = long_r.max;
+  }
+
   var hash = new GeoHashBits();  
-  var result = geohashInt.geohash_encode(lat_r.ref(), long_r.ref(), latitude, longitude, bits, hash.ref());
+  var result = geohashInt.geohash_encode(latr.ref(), longr.ref(), latitude, longitude, bits, hash.ref());
 
   return hash;
 
@@ -77,12 +76,29 @@ var encode_int = function(lat_range, long_range, latitude, longitude, bits){
 };
 
 var decode_int = function(lat_range, long_range, bits, steps){
+
+  var latr = new GeoHashRange();
+  var longr = new GeoHashRange();
+
+  if(lat_range && long_range){
+    latr.min = lat_range.min || lat_r.min;
+    latr.max = lat_range.max || lat_r.max;
+    longr.min = long_range.min || long_r.min;
+    longr.max = long_range.max || long_r.max;
+  }
+  else{
+    latr.min = lat_r.min;
+    latr.max = lat_r.max;
+    longr.min = long_r.min;
+    longr.max = long_r.max;
+  }
+  
   var hash = new GeoHashBits(); 
   hash.bits = bits;
   hash.step = steps;
 
   var area = new GeoHashArea();
-  var result = geohashInt.geohash_decode(lat_r.ref(), long_r.ref(), hash.ref(), area.ref());
+  var result = geohashInt.geohash_decode(latr.ref(), longr.ref(), hash.ref(), area.ref());
 
   return area;
 
