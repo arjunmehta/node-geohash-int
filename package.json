@@ -1,0 +1,38 @@
+{
+  "name": "geohash-int",
+  "version": "0.0.1",
+  "description": "a port of the c version of geohash-int",
+  "keywords": [
+    "geohash",
+    "integer"
+  ],
+  "author": {
+    "name": "Arjun Mehta",
+    "email": "arjun@newlief.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arjunmehta/XXXX.git"
+  },
+  "dependencies": {
+    "node-ffi": "*",
+    "ffi": "*",
+    "ref": "*",
+    "ref-struct": "*"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+  },
+  "main": "index",
+  "engines": {
+    "node": ">= 0.6.x"
+  },
+  "readme": "",
+  "readmeFilename": "Readme.md",
+  "bugs": {
+    "url": "https://github.com/arjunmehta/XXXX.js/issues"
+  },
+  "_id": "geohash-int@0.0.1",
+  "_from": "geohash-int@"
+}
