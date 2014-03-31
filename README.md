@@ -34,6 +34,8 @@ geohashInt.encode(latitude_range, longitude_range, latitude, longitude, step);
 ```
 The encoding method takes both latitudinal and longitudinal ranges, as well as the latitude and longitude to be hashed. The final argument is the step count which determines the bit depth `(step*2)`. ie. If you want a bit depth of 52, use 26. If you want 48, use 24 etc.
 
+Ranges can be passed in as `null` and the method will default to maximum ranges.
+
 Returns a `hash` object with the following properties:
 - `bits`: the hash in integer form.
 - `step`: the step count of the hash to be used when decoding.
@@ -43,6 +45,8 @@ Returns a `hash` object with the following properties:
 geohashInt.decode(latitude_range, longitude_range, hashBits, hashStep);
 ```
 The decoding method takes both latitudinal and longitudinal ranges, as well as the hashed bits (the integer hash value) and the step count of that integer hash.
+
+Ranges can be passed in as `null` and the method will default to maximum ranges.
 
 Returns an `area` object with the following properties:
 - `latitude`: an object with `min` and `max` latitudinal value ranges.
