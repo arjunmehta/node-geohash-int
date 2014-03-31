@@ -27,16 +27,14 @@ console.log("Neighbours are: "neighbors);
 # methods
 ## encoding
 ``` js
-geohashInt.encode(latitude, longitude, step, latitude_range, longitude_range);
+geohashInt.encode(latitude, longitude, bitDepth, latitude_range, longitude_range);
 ```
 Arguments:
 - `latitude`: a number between -90 and 90
 - `longitude`: a number between -180 and 180
-- `step`(optional): half the number of bits
-
-It also optionally can take a `` value which determines the bit depth `(step*2)`. ie. If you want a bit depth of 16, use 8. If you want 48, use 24 etc. If step is not provided, will default to 26 (52 bits).
-
-Also use latitudinal and longitudinal ranges to narrow your scope.  Ranges can be passed in as `null` and the method will default to maximum ranges.
+- `bitDepth`(optional): bitDepth of the hash (must be even). `default: 52`
+- `latitude_range`(optional): an object with `max` and `min` latitudinal ranges. `default: {min:-90, max:90}`
+- `longitude_range`(optional): an object with `max` and `min` longitudinal ranges. `default: {min:-180, max:180}`
 
 Returns a `hash` object with the following properties:
 - `bits`: the hash in integer form.
@@ -44,7 +42,6 @@ Returns a `hash` object with the following properties:
 
 ### example
 ```js
-
 var latitude_range = {min:-90, max:90};
 var longitude_range = {min:-180, max:180};
 var latitude = 43.6667;
@@ -53,24 +50,31 @@ var step = 26; //must be your desired bit count divided by 2.
 
 var hash = geohashInt.encode(latitude, longitude, step, latitude_range, longitude_range);
 console.log("Integer Hash is: ", hash.bits);
-
 ``` 
-
 
 ## decoding
 ``` js
-geohashInt.decode(hashBits, hashStep(optional), latitude_range(optional), longitude_range(optional));
+geohashInt.decode(hashBits, hashBitDepth, latitude_range, longitude_range);
 ```
-The `decode` method takes the hashed bits (the integer hash value). Optionally a `step` value which defaults to 26 (52 bits), and latitudinal and longitudinal ranges.
+Arguments:
+- `hashBits`: the geohash bits to be decoded
+- `hashBitDepth`(optional): bitDepth of the passed in geohash (must be even). `default: 52`
+- `latitude_range`(optional): an object with `max` and `min` latitudinal ranges. `default: {min:-90, max:90}`
+- `longitude_range`(optional): an object with `max` and `min` longitudinal ranges. `default: {min:-180, max:180}`
 
 Returns an `area` object with the following properties:
+- `hash`: the original passed in geohash.
 - `latitude`: an object with `min` and `max` latitudinal value ranges.
 - `longitude`: an object with `min` and `max` longitudinal value ranges.
 
 ## neighbours
 ``` js
-geohashInt.get_neighbors(hashBits, hashStep(optional));
+geohashInt.get_neighbors(hashBits, hashBitDepth);
 ```
+Arguments:
+- `hashBits`: the geohash bits used to find its nearest cardinal neighbours.
+- `hashBitDepth`(optional): bitDepth of the passed in hash (must be even). `default: 52`
+
 The `neighbor` (US spelling ;) method finds cardinal neighbour hashes to the passed in hashed bits (the integer hash value) and also optionally takes the step count of that integer hash.
 
 Returns a `neighbor` object with hashes for `north`, `east`, `south`, `west`, `north_west`, `north_east`, `south_west` and `south_east` neighbours.
@@ -81,4 +85,4 @@ Currently there are a few issues with this wrapper. It makes heavy use of `node-
 It was made as a temporary solution and a personal experiment in bridging c++ libraries into node.
 
 - For now the user must compile the Shared Object (.so) file from the source in order for this module to work.
-- Currently the returned results from the functions include a reference buffer. While these would likely not really be an issue when dealing with the data, it is ugly when logging :)
+- The returned results directly from the functions include a reference buffer and are not inherently editable in a natural JS based way. So the native objects need to be parsed and properly converted to standard JS objects. This makes things not 100% optimal performance-wise.
