@@ -27,11 +27,14 @@ console.log("Neighbours are: "neighbors);
 # methods
 ## encoding
 ``` js
-geohashInt.encode(latitude, longitude, step(optional), latitude_range(optional), longitude_range(optional));
+geohashInt.encode(latitude, longitude, step, latitude_range, longitude_range);
 ```
-The `encode` method takes latitude and longitude to be hashed.
+Arguments:
+- `latitude`: a number between -90 and 90
+- `longitude`: a number between -180 and 180
+- `step`(optional): half the number of bits
 
-It also optionally can take a `step` value which determines the bit depth `(step*2)`. ie. If you want a bit depth of 16, use 8. If you want 48, use 24 etc. If step is not provided, will default to 26 (52 bits).
+It also optionally can take a `` value which determines the bit depth `(step*2)`. ie. If you want a bit depth of 16, use 8. If you want 48, use 24 etc. If step is not provided, will default to 26 (52 bits).
 
 Also use latitudinal and longitudinal ranges to narrow your scope.  Ranges can be passed in as `null` and the method will default to maximum ranges.
 
