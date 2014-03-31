@@ -16,7 +16,6 @@
     "url": "https://github.com/arjunmehta/node-geohash-int.git"
   },
   "dependencies": {
-    "node-ffi": "*",
     "ffi": "*",
     "ref": "*",
     "ref-struct": "*"
