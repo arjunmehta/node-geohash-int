@@ -3,6 +3,10 @@ node-geohash-int
 
 A basic wrapper for the C [`geohash-int`](https://github.com/yinqiwen/geohash-int) library by [`yin qiwen`](https://github.com/yinqiwen).
 
+**NOTE: This module is very slow compared to the native javascript library. We are working on integrating this functionality into the native `node-geohash` library [`node-geohash`](https://github.com/sunng87/node-geohash)**
+
+## Introduction
+
 This module will allow you to encode and decode Geolocation integer hashes up to 52 bits, instead of the more standard base32 hashes that would be produced by other modules such as [`node-geohash`](https://github.com/sunng87/node-geohash).
 
 This opens up many doors for leveraging sorted sets in Redis, or for doing other number based operations on the geohashes.
