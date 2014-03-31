@@ -97,8 +97,7 @@ console.log("Neighbours are: "neighbors);
 ``` 
 
 # issues
-Currently there are a few issues with this wrapper. It makes heavy use of `node-ffi` to make use of an the C library `geohash-int` by [`yin qiwen`](https://github.com/yinqiwen).
-It was made as a temporary solution and a personal experiment in bridging c++ libraries into node.
+This library was made as a temporary solution and a personal experiment in bridging c++ libraries into node. Currently there are a few issues with this wrapper. It makes heavy use of `node-ffi` to make use of an the C library `geohash-int` by [`yin qiwen`](https://github.com/yinqiwen).
 
 - If node-gyp is having problems run `gcc -shared -o libgeohash.so -fPIC geohash.c` in the `node-geohash-int/src` directory. The node-gyp automatic compile hasn't been testing in any environment other than Ubuntu and node 10.24.
 - Clearly there are performance issues with wrapping this module, and hopefully I'll be able to make a native implementation integrated into the node-geohash module that already has traction.
