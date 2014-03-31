@@ -3,7 +3,7 @@ node-geohash-int
 
 A basic wrapper for the C [`geohash-int`](https://github.com/yinqiwen/geohash-int) library by [`yin qiwen`](https://github.com/yinqiwen).
 
-**NOTE: This module is very slow compared to the native javascript library. We are working on integrating this functionality into the native `node-geohash` library [`node-geohash`](https://github.com/sunng87/node-geohash)**
+**NOTE: This module is very slow compared to the native javascript library. We are working on integrating this functionality into the native nodejs library [`node-geohash`](https://github.com/sunng87/node-geohash)**
 
 ## Introduction
 
