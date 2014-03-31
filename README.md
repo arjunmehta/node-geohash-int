@@ -97,6 +97,6 @@ console.log("Neighbours are: "neighbors);
 Currently there are a few issues with this wrapper. It makes heavy use of `node-ffi` to make use of an the C library `geohash-int` by [`yin qiwen`](https://github.com/yinqiwen).
 It was made as a temporary solution and a personal experiment in bridging c++ libraries into node.
 
-- For now the user must compile the Shared Object (.so) file from the source in order for this module to work.
+- For now the user must compile the Shared Object (.so) file from the source in order for this module to work. Just run `gcc -shared -o libgeohash.so -fPIC geohash.c` in the `node-geohash-int/src` directory
 - The returned results directly from the functions include a reference buffer and are not inherently editable in a natural JS based way. So the native objects need to be parsed and properly converted to standard JS objects. This makes things not 100% optimal performance-wise.
 - Clearly there are performance issues with wrapping this module, and hopefully I'll be able to make a native implementation integrated into the node-geohash module that already has traction.
