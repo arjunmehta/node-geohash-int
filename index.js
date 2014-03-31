@@ -33,7 +33,7 @@ var GeoHashNeighbors = Struct({
 });
 var GeoHashNeighborsPtr = ref.refType(GeoHashNeighbors);
 
-var geohashInt = ffi.Library(__dirname + '/src/libgeohash', {
+var geohashInt = ffi.Library(__dirname + '/build/Release/geohash', {
   "geohash_encode": [ 'int', [ GeoHashRangePtr, GeoHashRangePtr, 'double', 'double', 'uint8', GeoHashBitsPtr ] ],
   "geohash_decode": [ 'int', [ GeoHashRangePtr, GeoHashRangePtr, GeoHashBitsPtr, GeoHashAreaPtr] ],
   "geohash_get_neighbors": [ 'int', [ GeoHashBitsPtr, GeoHashNeighborsPtr ] ]
