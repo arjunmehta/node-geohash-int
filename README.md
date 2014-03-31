@@ -11,42 +11,54 @@ This opens up many doors for leveraging sorted sets in Redis, or for doing other
 ``` js
 var geohashInt = require('geohash-int');
 
-var latitude_range = {min:-90, max:90};
-var longitude_range = {min:-180, max:180};
 var latitude = 43.6667;
 var longitude = -79.4167;
-var step = 26; //must be your desired bit count divided by 2.
 
-var hash = geohashInt.encode(latitude_range, longitude_range, latitude, longitude, step);
+var hash = geohashInt.encode(latitude, longitude);
 console.log("Integer Hash is: ", hash.bits);
 
-var area = geohashInt.decode(latitude_range, longitude_range, hash.bits, hash.step);
+var area = geohashInt.decode(hash.bits);
 console.log("Decoded Area is: ", area);
 
-var neighbors = geohashInt.get_neighbors(hash.bits, hash.step);
+var neighbors = geohashInt.get_neighbors(hash.bits);
 console.log("Neighbours are: "neighbors);
 ```
 
 # methods
 ## encoding
 ``` js
-geohashInt.encode(latitude_range, longitude_range, latitude, longitude, step);
+geohashInt.encode(latitude, longitude, step(optional), latitude_range(optional), longitude_range(optional));
 ```
-The `encode` method takes both latitudinal and longitudinal ranges, as well as the latitude and longitude to be hashed. The final argument is the step count which determines the bit depth `(step*2)`. ie. If you want a bit depth of 52, use 26. If you want 48, use 24 etc.
+The `encode` method takes latitude and longitude to be hashed.
 
-Ranges can be passed in as `null` and the method will default to maximum ranges.
+It also optionally can take a `step` value which determines the bit depth `(step*2)`. ie. If you want a bit depth of 16, use 8. If you want 48, use 24 etc. If step is not provided, will default to 26 (52 bits).
+
+Also use latitudinal and longitudinal ranges to narrow your scope.  Ranges can be passed in as `null` and the method will default to maximum ranges.
 
 Returns a `hash` object with the following properties:
 - `bits`: the hash in integer form.
 - `step`: the step count of the hash to be used when decoding.
 
+### example
+```js
+
+var latitude_range = {min:-90, max:90};
+var longitude_range = {min:-180, max:180};
+var latitude = 43.6667;
+var longitude = -79.4167;
+var step = 26; //must be your desired bit count divided by 2.
+
+var hash = geohashInt.encode(latitude, longitude, step, latitude_range, longitude_range);
+console.log("Integer Hash is: ", hash.bits);
+
+``` 
+
+
 ## decoding
 ``` js
-geohashInt.decode(latitude_range, longitude_range, hashBits, hashStep);
+geohashInt.decode(hashBits, hashStep(optional), latitude_range(optional), longitude_range(optional));
 ```
-The `decode` method takes both latitudinal and longitudinal ranges, as well as the hashed bits (the integer hash value) and the step count of that integer hash.
-
-Ranges can be passed in as `null` and the method will default to maximum ranges.
+The `decode` method takes the hashed bits (the integer hash value). Optionally a `step` value which defaults to 26 (52 bits), and latitudinal and longitudinal ranges.
 
 Returns an `area` object with the following properties:
 - `latitude`: an object with `min` and `max` latitudinal value ranges.
@@ -54,9 +66,9 @@ Returns an `area` object with the following properties:
 
 ## neighbours
 ``` js
-geohashInt.get_neighbors(hashBits, hashStep);
+geohashInt.get_neighbors(hashBits, hashStep(optional));
 ```
-The `neighbor` (US spelling ;) method finds cardinal neighbour hashes to the passed in hashed bits (the integer hash value) and also requires the step count of that integer hash.
+The `neighbor` (US spelling ;) method finds cardinal neighbour hashes to the passed in hashed bits (the integer hash value) and also optionally takes the step count of that integer hash.
 
 Returns a `neighbor` object with hashes for `north`, `east`, `south`, `west`, `north_west`, `north_east`, `south_west` and `south_east` neighbours.
 
