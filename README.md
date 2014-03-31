@@ -38,7 +38,7 @@ Arguments:
 
 Returns a `hash` object with the following properties:
 - `bits`: the hash in integer form.
-- `step`: the step count of the hash to be used when decoding.
+- `bitDepth`: the bitDepth of the geohash.
 
 ### example
 ```js
@@ -46,10 +46,10 @@ var latitude_range = {min:-90, max:90};
 var longitude_range = {min:-180, max:180};
 var latitude = 43.6667;
 var longitude = -79.4167;
-var step = 26; //must be your desired bit count divided by 2.
+var bitDepth = 52;
 
-var hash = geohashInt.encode(latitude, longitude, step, latitude_range, longitude_range);
-console.log("Integer Hash is: ", hash.bits);
+var hash = geohashInt.encode(latitude, longitude, bitDepth, latitude_range, longitude_range);
+console.log("Integer Geohash with ", hash.bitDepth, "bits is: ", hash.bits);
 ``` 
 
 ## decoding
@@ -67,6 +67,13 @@ Returns an `area` object with the following properties:
 - `latitude`: an object with `min` and `max` latitudinal value ranges.
 - `longitude`: an object with `min` and `max` longitudinal value ranges.
 
+### example
+```js
+//using hash, latitude_range and longitude_range from encoding example.
+var area = geohashInt.decode(hash.bits, hash.bitDepth, latitude_range, longitude_range);
+console.log("Decoded Area is: ", area);
+``` 
+
 ## neighbours
 ``` js
 geohashInt.get_neighbors(hashBits, hashBitDepth);
@@ -79,6 +86,12 @@ The `neighbor` (US spelling ;) method finds cardinal neighbour hashes to the pas
 
 Returns a `neighbor` object with hashes for `north`, `east`, `south`, `west`, `north_west`, `north_east`, `south_west` and `south_east` neighbours.
 
+### example
+```js
+//using hash from encoding example.
+var neighbors = geohashInt.get_neighbors(hash.bits, hash.bitDepth);
+console.log("Neighbours are: "neighbors);
+``` 
 
 # issues
 Currently there are a few issues with this wrapper. It makes heavy use of `node-ffi` to make use of an the C library `geohash-int` by [`yin qiwen`](https://github.com/yinqiwen).
