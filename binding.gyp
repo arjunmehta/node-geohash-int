@@ -1,7 +1,8 @@
 {
   "targets": [
     {
-      "target_name": "geohashlib",
+      "target_name": "libgeohash",
+      "type": "shared_library",
       "sources": [ "src/geohash.c" ]
     }
   ]

@@ -1,6 +1,6 @@
 {
   "name": "geohash-int",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "a port of the c version of geohash-int",
   "keywords": [
     "geohash",
@@ -33,6 +33,6 @@
   "bugs": {
     "url": "https://github.com/arjunmehta/node-geohash-int/issues"
   },
-  "_id": "geohash-int@0.0.1",
+  "_id": "geohash-int@0.0.3",
   "_from": "geohash-int@"
 }
