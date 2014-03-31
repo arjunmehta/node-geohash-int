@@ -48,7 +48,7 @@ var long_r = new GeoHashRange();
 long_r.min = -180.0;
 long_r.max = 180.0;
 
-var encode_int = function(lat_range, long_range, latitude, longitude, bits){
+var encode_int = function(latitude, longitude, step, lat_range, long_range){
 
   var latr = new GeoHashRange();
   var longr = new GeoHashRange();
@@ -67,7 +67,7 @@ var encode_int = function(lat_range, long_range, latitude, longitude, bits){
   }
 
   var hash = new GeoHashBits();  
-  var result = geohashInt.geohash_encode(latr.ref(), longr.ref(), latitude, longitude, bits, hash.ref());
+  var result = geohashInt.geohash_encode(latr.ref(), longr.ref(), latitude, longitude, step || 26, hash.ref());
 
   return hash;
 
@@ -75,7 +75,7 @@ var encode_int = function(lat_range, long_range, latitude, longitude, bits){
   // return hash_c;
 };
 
-var decode_int = function(lat_range, long_range, bits, steps){
+var decode_int = function(bits, step, lat_range, long_range){
 
   var latr = new GeoHashRange();
   var longr = new GeoHashRange();
@@ -92,10 +92,10 @@ var decode_int = function(lat_range, long_range, bits, steps){
     longr.min = long_r.min;
     longr.max = long_r.max;
   }
-  
+
   var hash = new GeoHashBits(); 
   hash.bits = bits;
-  hash.step = steps;
+  hash.step = step || 26;
 
   var area = new GeoHashArea();
   var result = geohashInt.geohash_decode(latr.ref(), longr.ref(), hash.ref(), area.ref());
@@ -106,10 +106,10 @@ var decode_int = function(lat_range, long_range, bits, steps){
   // return area_c;
 };
 
-var get_neighbors_int = function(bits, steps){
+var get_neighbors_int = function(bits, step){
   var hash = new GeoHashBits(); 
   hash.bits = bits;
-  hash.step = steps;
+  hash.step = step || 26;
 
   var neighbors = new GeoHashNeighbors();
   var result = geohashInt.geohash_get_neighbors(hash.ref(), neighbors.ref());
