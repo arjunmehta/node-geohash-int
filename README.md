@@ -7,10 +7,10 @@ This module will allow you to encode and decode Geolocation integer hashes up to
 
 This opens up many doors for leveraging sorted sets in Redis, or for doing other number based operations on the geohashes.
 
-# install
+## install
 `npm install geohash-int`
 
-# example
+## example
 ``` js
 var geohashInt = require('geohash-int');
 
