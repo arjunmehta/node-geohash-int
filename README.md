@@ -82,7 +82,7 @@ Arguments:
 - `hashBits`: the geohash bits used to find its nearest cardinal neighbours.
 - `hashBitDepth`(optional): bitDepth of the passed in hash (must be even). `default: 52`
 
-The `neighbor` (US spelling ;) method finds cardinal neighbour hashes to the passed in hashed bits (the integer hash value) and also optionally takes the step count of that integer hash.
+The `neighbor` (US spelling ;) method finds cardinal neighbour hashes to the passed in geohashed bits.
 
 Returns a `neighbor` object with hashes for `north`, `east`, `south`, `west`, `north_west`, `north_east`, `south_west` and `south_east` neighbours.
 
